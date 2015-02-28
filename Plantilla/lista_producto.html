@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang='es'>
+  <head>
+	<title>Lista de Productos</title>
+	<meta charset='utf-8'>
+	
+	<link href="{{STATIC_URL}}css/estilo_productos.css" rel="stylesheet">
+
+
+  </head>
+
+
+  <body>
+
+    <section id="zonaregresar">
+	<div>
+	<form name="regresar" method="get" action="{% url 'principal' %}">
+    <input type="submit" id="inicio" name="inicio" value="" >
+	</form>
+    </div>
+	</section>
+
+    <h1 align="center">Nuestros Productos</h1>
+
+    <nav id="deportes">
+	<ul id="menu">
+		<li>Futbol</li>
+		<li>Running</li>
+		<li>Tenis</li>
+		<li>Rugby</li>
+        <li>Basquet</li>
+		<li>Hockey</li>
+		<li>Natacion</li>
+		<li>Trainning</li>
+	</ul>
+	</nav>
+	
+	
+	
+	<aside id="categorias">
+	<blockquote> HOMBRE</blockquote>
+	<blockquote> MUJER</blockquote>
+	<blockquote> NIÑOS</blockquote>
+	<blockquote> MARCAS</blockquote>
+    <blockquote> DISCIPLINAS</blockquote>
+	<blockquote> CALZADO</blockquote>
+    <blockquote> ROPA</blockquote>
+	<blockquote> ACCESORIOS</blockquote>
+	</aside>
+	
+	
+	
+	{% for elemento in lista %}
+	
+	<div id="prod">
+	
+	<section id="productos">
+
+	  <h2>{{elemento.nombre_producto}}</h2>
+
+	  <h3>Cat: {{elemento.subcategoria}}</h3>
+		
+		<ul>
+		
+        <section id="imagen">
+        
+        <li>{% load thumbnail %}
+		{% thumbnail elemento.imagen "200" crop="200px 200px" format="PNG" as im%}
+			<img src="{{im.url}}">
+		{% endthumbnail %}</li>
+		<form name="pasar" " method="post" action="{% url 'ver_producto' %}">
+		{% csrf_token %}
+		<input type="hidden" name="q" value="{{elemento.codigo}}">
+		<input type="submit" id="individual" name="" value="" >
+		</form> </li>
+		</section>
+		
+        <!--<li>Cod: {{elemento.codigo}}</li>-->
+		<li>Marca: {{elemento.marca}}</li>
+		<!--<li>Stock: {{elemento.stock}}</li>-->
+		<!--<li>Genero: {{elemento.genero}}</li>-->
+		<li style="color:#903; letter-spacing:1px; font-size:24px;">Precio: ${{elemento.precio}}</li>
+		<!--<li>Descripcion: {{elemento.descripcion}}</li>-->
+        
+        <section id="zonacompras">
+    	<form name="pasar" " method="post" action="{% url 'mi_carrito' %}">
+		{% csrf_token %}
+		<input type="hidden" name="q" value="{{elemento.codigo}}">
+		<input type="submit" id="comprar" name="comprar" value="" >
+    	</form>
+    	
+        </section>	
+		
+        </ul>
+	
+	</section>
+	
+	</div>
+	
+	{% endfor %}
+  	
+
+  <footer id= "pie">
+	<small>todos los derechos reservados @DeportShoes</small> <address>telefono:---------</address>
+  </footer>
+
+
+  </body>
+
+  </html>

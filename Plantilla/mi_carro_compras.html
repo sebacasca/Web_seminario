@@ -1,0 +1,97 @@
+<!doctype html>
+<html>
+
+<head>
+
+<meta charset="utf-8">
+<title>Mi carrito</title>
+
+<link href="{{STATIC_URL}}css/estilo_mi_carrito.css" rel="stylesheet">
+
+<script>
+
+function comenzar(){
+	
+		
+	
+}
+
+
+
+window.addEventListener("load", comenzar, false);
+
+</script>
+
+
+</head>
+
+
+<body>
+	<p id="ingresar"><a href="{% url 'ingresar' %}">Ingresar</a></p>
+	
+    <h1>Mi carrito</h1>
+
+	<h2>confirma los productos de tu carrito</h2>
+	
+    <form name="seguir" method="get" >
+ 	<input type="submit" id="listado" name="listado" value="">
+ 	</form>
+    
+ 
+    <div id="zonaformulario">    
+    
+    <section id="producto">
+	Producto:
+        <ul>
+        <li>{% load thumbnail %}
+		{% thumbnail elemento.imagen "200" crop="200px 200px" format="PNG" as im%}
+			<img src="{{im.url}}">
+		{% endthumbnail %}</li>
+        <li> {{elemento.nombre_producto}}</li>
+        <li>{{elemento.subcategoria}}</li>
+        <li>{{elemento.marca}}</li>
+        <li>Cod: {{elemento.codigo}}</li>
+		<!--<li >Stock: {{elemento.stock}}</li>-->
+		<!--<li>Genero: {{elemento.genero}}</li>-->
+		<!--<li>Precio: ${{elemento.precio}}</li>-->
+		<!--<li >Descripcion: {{elemento.descripcion}}</li>-->
+	    </ul>
+	</section>
+	
+	
+    <section id="zonacantidad" style="font-size:18px;">
+    Cantidad:<input type="number" name="cantidad" id="cantidad" min="1" max="10" required>
+	</section>
+	
+    <section id="precio" style="font-size:18px;">
+    Precio Unitario: ${{elemento.precio}}
+	</section>
+	
+    <section id="total" style="font-size:18px;">
+    Total: ${{elemento.precio}}*cantidad 
+	</section>
+    
+    <form name="formulario" id="formulario" method="get" action="{% url 'mi_compra' %}">
+    <input type="submit" name="compra" id="compra" value="">
+	</form>
+    
+    <!--<form name="p_individual" method="get" action="{% url 'ver_producto' %}">
+    <input type="submit" id="atras" name="atras" value="">
+	</form>-->
+	</div>
+    
+    <div id="zona factura">
+    
+    
+    
+    
+    </div>
+
+
+
+
+
+
+</body>
+
+</html>
