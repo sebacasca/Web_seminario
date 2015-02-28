@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+
+<head>
+
+<meta charset="utf-8">
+<title>Ingresar</title>
+
+<link href="{{STATIC_URL}}css/estilo_ingresar.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<!--<h1>Ingresa</h1>-->
+<section id="ingreso">
+<p>Por favor, ingrese nombre de usuario y contraseña:</p>
+</section>
+
+<div id="zonaformulario">
+<form id='formulario' method='post' action=''>{% csrf_token %}
+	
+    <table>{{formulario}}</table>
+	<p><input type='submit' value='' id="ingresar"/></p>
+</form>
+</div>
+
+<section id="registracion">
+	<div>
+	Todavia no sos Usuario, que esperas para serlo...
+    <form name="registro" method="get" action="{% url 'nuevousuario' %}">
+    <input type="submit" id="registrar" name="registrar" value="" >
+	</form>
+    </div>
+
+</section>
+
+</body>
+
+</html>
+
