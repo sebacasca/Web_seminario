@@ -7,12 +7,14 @@ from django.http.response import HttpResponseRedirect
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
+from django.contrib.sessions.models import Session
 
 
 
 from forms import SignUpForm
 
 def lista_producto(request):
+	print request.session.session_key
 	productos = producto.objects.all()
 	return render_to_response('lista_producto.html',{'lista':productos}, context_instance=RequestContext(request))
 	
@@ -51,6 +53,7 @@ def nuevousuario(request):
 	
 def ingresar(request):
 	if not request.user.is_anonymous():
+		request.session["carrito"] = []
 		return HttpResponseRedirect('/privado')
 	if request.method == 'POST':
 		formulario = AuthenticationForm(request.POST)
@@ -61,6 +64,7 @@ def ingresar(request):
 			if acceso is not None:
 				if acceso.is_active:
 					login(request,acceso)
+					request.session["carrito"] = []
 					return HttpResponseRedirect('/privado')
 				else:
 					return render_to_response('noactivo.html', context_instance=RequestContext(request))
@@ -89,12 +93,17 @@ def producto_individual(request):
 		
 def mi_carro(request):
 	if request.method == 'POST':
-		cod = request.POST["q"]
-		productos = producto.objects.get(pk=cod)
-		#productos = producto.objects.all()
-		return render_to_response('mi_carro_compras.html',{'elemento':productos}, context_instance=RequestContext(request))
+		if request.user.is_authenticated():
+			cod = request.POST["q"]
+			productos = producto.objects.get(pk=cod)
+			lista = request.session["carrito"]
+			lista.append(productos)
+			request.session["carrito"] = lista
+			#request.session["carrito"].append(productos.codigo)
+			print request.session["carrito"]
+			#return render_to_response('mi_carro_compras.html',{'elemento':productos}, context_instance=RequestContext(request))
+			return render_to_response('mi_carro_compras.html',{'elementos':request.session["carrito"]}, context_instance=RequestContext(request))
+		else: return HttpResponseRedirect('/ingresar')
 		
 def mi_compra(request):
 	return render_to_response('compra_realizada.html', context_instance=RequestContext(request))
-		
-

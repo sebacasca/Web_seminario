@@ -40,38 +40,24 @@ window.addEventListener("load", comenzar, false);
  
     <div id="zonaformulario">    
     
+    {% for elemento in elementos %}
     <section id="producto">
-	Producto:
+	<p style="color:#ccc;text-decoration:underline; font-size:18px; " >PRODUCTO Agregado</p>
         <ul>
         <li>{% load thumbnail %}
-		{% thumbnail elemento.imagen "200" crop="200px 200px" format="PNG" as im%}
+		{% thumbnail elemento.imagen "300" crop="300px 300px" format="PNG" as im%}
 			<img src="{{im.url}}">
 		{% endthumbnail %}</li>
-        <li> {{elemento.nombre_producto}}</li>
-        <li>{{elemento.subcategoria}}</li>
-        <li>{{elemento.marca}}</li>
-        <li>Cod: {{elemento.codigo}}</li>
-		<!--<li >Stock: {{elemento.stock}}</li>-->
-		<!--<li>Genero: {{elemento.genero}}</li>-->
-		<!--<li>Precio: ${{elemento.precio}}</li>-->
-		<!--<li >Descripcion: {{elemento.descripcion}}</li>-->
-	    </ul>
+        <li style="color:#666;">Cod: {{elemento.codigo}}</li>
+        <li style="color:#ccc;">{{elemento.marca}}</li>
+        <li style="color:#ccc;"> {{elemento.nombre_producto}}</li>
+        <li style="color:#903; letter-spacing:3px;  text-decoration:underline;"> ${{elemento.precio}}</li>
+    	</ul> 
 	</section>
-	
-	
-    <section id="zonacantidad" style="font-size:18px;">
-    Cantidad:<input type="number" name="cantidad" id="cantidad" min="1" max="10" required>
-	</section>
-	
-    <section id="precio" style="font-size:18px;">
-    Precio Unitario: ${{elemento.precio}}
-	</section>
-	
-    <section id="total" style="font-size:18px;">
-    Total: ${{elemento.precio}}*cantidad 
-	</section>
+	{% endfor %}
     
-    <form name="formulario" id="formulario" method="get" action="{% url 'mi_compra' %}">
+    <!--<form name="formulario" id="formulario" method="get" action="{% url 'mi_compra' %}">-->
+    <form name="formulario" id="formulario" method="get" action="https://www.mercadopago.com.ar/">
     <input type="submit" name="compra" id="compra" value="">
 	</form>
     
@@ -86,10 +72,6 @@ window.addEventListener("load", comenzar, false);
     
     
     </div>
-
-
-
-
 
 
 </body>

@@ -2,7 +2,7 @@
 /* CSS Document */
 
 html { 
-  background: url(../img/intro-bg1.jpg)no-repeat center center fixed;
+  background: url(../img/fondoazulnegro.jpg)no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -34,22 +34,22 @@ h2{
 section{
 	float:left;
 	border:#9CF solid 2px;
-	/*width:15%;
-	height:15%;*/
-	width:210px;
-	height:100px;
+	width:400px;
+	height:260px;
 	text-align:center;
-	padding:50px 0;
+	/*padding:50px 0;*/
 	font-family:Arial, Helvetica, sans-serif;
 	font-size:14px;
 	color:#FFF;
 	font:bold;
+	border-radius:10px;
+	overflow:hidden;
 }
 
 img{
 	float:left;
-	width:100px;
-	height:100px;
+	width:200px;
+	height:200px;
 	border:#9CF solid 1px;
 	border-radius: 10px;
 	margin-right:3%;
@@ -58,11 +58,15 @@ img{
 	
 ul{
 	list-style:none;
+	
 }
 
 li{
 	text-align:left;
-	padding:3px 0px;
+	padding:2px 4px;
+	font:bold;
+	font-size:20px;
+	
 }
 
 
